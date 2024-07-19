@@ -306,3 +306,43 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+-- ampliacion de tablas de la base-
+
+CREATE TABLE comentario (
+    comentario_id INT AUTO_INCREMENT NOT NULL,
+    cliente_id INT NOT NULL,
+    hotel_id INT NOT NULL,
+    fecha DATE NOT NULL,
+    comentario TEXT NOT NULL,
+    puntuacion DECIMAL(2,1) NOT NULL,
+    PRIMARY KEY(comentario_id),
+    FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id),
+    FOREIGN KEY (hotel_id) REFERENCES hotel(hotel_id)
+);
+
+CREATE TABLE evento (
+    evento_id INT AUTO_INCREMENT NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(255),
+    fecha DATE NOT NULL,
+    hotel_id INT,
+    PRIMARY KEY(evento_id),
+    FOREIGN KEY (hotel_id) REFERENCES hotel(hotel_id)
+);
+
+CREATE TABLE servicio (
+    servicio_id INT AUTO_INCREMENT NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(255),
+    costo DECIMAL,
+    PRIMARY KEY(servicio_id)
+);
+
+CREATE TABLE hotel_servicio (
+    hotel_id INT NOT NULL,
+    servicio_id INT NOT NULL,
+    PRIMARY KEY(hotel_id, servicio_id),
+    FOREIGN KEY (hotel_id) REFERENCES hotel(hotel_id),
+    FOREIGN KEY (servicio_id) REFERENCES servicio(servicio_id)
+);    
